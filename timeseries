@@ -1,0 +1,40 @@
+#creating a function for future graphs (quicker)
+def create_a_time():
+    # input specific title based on plotted variables
+    print('What would you like the color of your graph to be?')
+    u = input()
+    print('What is the title?')
+    v = input()
+    print('What is the label for your x-axis?')
+    w = input()
+    print('What is the label for your y-axis?')
+    x = input()
+    print('Save your graph as: ')
+    y = input()
+    
+    # importing packages
+    import pandas as pa
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from tkinter import filedialog as fd
+
+    #importing a file (aerosol or trace gases(SO2, NO2, Ozone))
+    file_name = fd.askopenfilename()
+    with open(file_name) as FID:
+        df = pa.read_excel(file_name, index_col = 0)
+     
+    #creating variables for special parameters
+    mean = df['Arithmetic Mean']
+    date = df['Date (Local)']
+    
+    #seaborn (making the graphs 'nicer')
+    import seaborn
+    seaborn.set()
+    
+    #plotting the graph
+    fig,ax = plt.subplots(figsize = (15,10))
+    ax.plot(date, mean, color = u)
+    ax.set_title(v)
+    ax.set_xlabel(w)
+    ax.set_ylabel(x)
+    fig.savefig(y)
